@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Login / Signup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body style="
+  background:#111;
+  color:white;
+  font-family:sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+">
+
+  <div style="background:#1a1a1a;padding:20px;border-radius:10px;width:320px">
+    <h2 id="title">Sign In</h2>
+
+    <input id="email" placeholder="Email" style="width:100%;padding:8px;margin-bottom:10px">
+
+    <input id="password" type="password" placeholder="Password" style="width:100%;padding:8px;margin-bottom:10px">
+
+    <button id="mainBtn" style="width:100%;padding:8px;background:#ff6a00;border:none">
+      Sign In
+    </button>
+
+    <p style="margin-top:10px;font-size:13px">
+      <span id="toggleText">Don't have an account?</span>
+      <a href="#" onclick="toggleMode()" style="color:#ff6a00">Sign Up</a>
+    </p>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+
+</html>
