@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Thank You — Blastzone</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            background-image: radial-gradient(circle at center, #1a1c23 0%, #0f1113 100%);
+        }
+
+        .thank-you-card {
+            background: var(--panel);
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            animation: popIn 0.5s ease;
+        }
+
+        .check-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--accent);
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            margin: 0 auto 20px auto;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Billing Styles */
+        .invoice-box {
+            background: #111;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 0.9rem;
+            border: 1px solid #333;
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .invoice-details {
+            margin-bottom: 15px;
+        }
+
+        .invoice-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            color: #ccc;
+        }
+
+        .invoice-total {
+            border-top: 1px solid #333;
+            padding-top: 10px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <div class="thank-you-card">
+        <div class="check-icon">✓</div>
+        <h1>Thank You!</h1>
+        <p class="muted">Your order has been placed successfully.</p>
+
+        <div id="invoice" class="invoice-box" style="display:none;">
+            <div class="invoice-header">
+                <span id="orderId">Order #</span>
+                <span id="orderDate">Date</span>
+            </div>
+            <div class="invoice-details">
+                <strong>Ship To:</strong><br>
+                <span id="custName"></span><br>
+                <span id="custAddress" class="muted"></span>
+            </div>
+            <div id="orderItems"></div>
+            <div class="invoice-total">
+                <span>Total</span>
+                <span id="orderTotal">$0.00</span>
+            </div>
+        </div>
+
+        <div style="margin-top:20px;">
+            <a href="index.html" class="btn"
+                style="padding: 15px 30px; text-decoration: none; display: inline-block;">Return to
+                Home</a>
+        </div>
+
+        <div class="feedback-section"
+            style="margin-top: 40px; text-align: left; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px;">
+            <h3 style="margin-bottom: 15px; color: var(--accent);">We value your feedback</h3>
+            <form id="feedbackForm">
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; color: #ccc;">Email Address</label>
+                    <input type="email" id="fbEmail" class="input" placeholder="name@example.com"
+                        style="width: 100%; box-sizing: border-box;" required>
+                    <small id="emailError" style="color: #ff6b6b; display: none;">Invalid email format</small>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; color: #ccc;">Mobile Number</label>
+                    <input type="tel" id="fbMobile" class="input" placeholder="10-digit mobile number"
+                        style="width: 100%; box-sizing: border-box;" required>
+                    <small id="mobileError" style="color: #ff6b6b; display: none;">Invalid mobile number (must be 10
+                        digits)</small>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; color: #ccc;">Your Feedback</label>
+                    <textarea id="fbMessage" class="input" rows="3" placeholder="Tell us about your experience..."
+                        style="width: 100%; box-sizing: border-box;" required></textarea>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%;">Submit Feedback</button>
+            </form>
+
+            <div id="feedbackDisplay"
+                style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; display: none;">
+                <h4 style="color: var(--accent); margin-bottom: 15px;">Recent Local Feedback</h4>
+                <div id="feedbackList" style="text-align: left; max-height: 200px; overflow-y: auto;">
+                    <!-- Feedback items will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const orderData = localStorage.getItem("lastOrder");
+        if (orderData) {
+            const order = JSON.parse(orderData);
+            document.getElementById("invoice").style.display = "block";
+
+            document.getElementById("orderId").textContent = order.id;
+            document.getElementById("orderDate").textContent = order.date;
+            document.getElementById("custName").textContent = order.customer.name;
+            document.getElementById("custAddress").textContent = order.customer.address;
+            document.getElementById("orderTotal").textContent = "$" + order.total;
+
+            const itemsContainer = document.getElementById("orderItems");
+            order.items.forEach(item => {
+                itemsContainer.innerHTML += `
+                    <div class="invoice-item">
+                        <span>${item.name}</span>
+                        <span>$${item.price.toFixed(2)}</span>
+                    </div>
+                `;
+            });
+        }
+
+        // setTimeout(() => {
+        //     // Optional: clear order after showing invoice if desired
+        //     // localStorage.removeItem("lastOrder");
+        //     window.location.href = 'index.html';
+        // }, 15000); // Increased timeout to allow reading invoice
+    </script>
+    <script src="js/feedback.js"></script>
+</body>
+
+</html>

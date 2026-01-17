@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Blastzone — Gear & Ammo</title>
+  <link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body>
+  <div class="container">
+
+    <header>
+      <div class="logo">Blastzone</div>
+      <nav>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button id="openCart" class="cart-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M9 20C9 21.1 8.1 22 7 22C5.9 22 5 21.1 5 20C5 18.9 5.9 18 7 18C8.1 18 9 18.9 9 20ZM17 20C17 21.1 16.1 22 15 22C13.9 22 13 21.1 13 20C13 18.9 13.9 18 15 18C16.1 18 17 18.9 17 20ZM20 6H4.78L3.71 1H0V3H2.52L5.43 16.5C5.7 17.6 6.8 18.4 8 18.4H19V16.4H8.35C8.03 16.4 7.73 16.14 7.6 15.65L7.22 14H19C19.8 14 20.5 13.5 20.8 12.8L23.8 7.3C24.1 6.7 23.7 6 23 6H20Z"
+            fill="currentColor" />
+        </svg>
+        <span id="cartCount" class="badge">0</span>
+      </button>
+    </header>
+
+
+    <section class="hero">
+      <h1>Gear Up for Battle</h1>
+      <p>Premium blasters and foam ammo for endless fun.</p>
+      <button class="btn" id="shopNow">Shop Now</button>
+    </section>
+
+
+    <section id="products">
+      <h2>Products</h2>
+      <div id="productGrid" class="products"></div>
+    </section>
+
+
+    <section id="about">
+      <h2>About Us</h2>
+      <p>Blastzone provides high-quality blasters and accessories for enthusiasts of all ages. We ensure safety,
+        durability, and maximum fun.</p>
+    </section>
+
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="contact-wrapper">
+        <div>
+          <p>Email: sales@blastzone.example</p>
+          <p>Phone: +1 (555) 123-4567</p>
+        </div>
+        <form id="contactForm">
+          <input id="cname" class="input" placeholder="Name" required>
+          <input id="cemail" class="input" placeholder="Email" required>
+          <textarea id="cmsg" class="input" rows="4" placeholder="Message" required></textarea>
+          <button class="btn" type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+
+    <section class="subscribe">
+      <h3>Join the Action</h3>
+      <div class="row">
+        <input id="email" class="input" placeholder="Your email">
+        <button class="btn" id="subscribe">Subscribe</button>
+      </div>
+    </section>
+
+
+    <footer>
+      <p>&copy; <span id="year"></span> Blastzone. All rights reserved.</p>
+    </footer>
+  </div>
+
+
+  <aside id="cart" class="cart" style="display:none;">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button id="closeCart" class="close-btn">x</button>
+
+    </div>
+    <div id="cartList" class="cart-items"></div>
+    <div class="cart-footer">
+      <p>Total: <span id="cartTotal">$0.00</span></p>
+      <div class="row">
+        <button class="btn" id="checkoutBtn">Checkout</button>
+        <button class="btn-outline" id="clearCartBtn">Clear</button>
+      </div>
+    </div>
+  </aside>
+
+
+  <div id="checkoutModal" class="modal-overlay" style="display: none;">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Checkout</h3>
+        <button id="closeCheckout" class="close-btn">&times;</button>
+      </div>
+      <form id="checkoutForm">
+        <input id="chkName" name="name" class="input" placeholder="Full Name" required>
+        <input id="chkEmail" name="email" class="input" type="email" placeholder="Email Address" required>
+        <input id="chkAddress" name="address" class="input" placeholder="Shipping Address" required>
+        <div class="row">
+          <button type="submit" class="btn">Place Order</button>
+          <button type="button" class="btn-outline" id="cancelCheckout">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
